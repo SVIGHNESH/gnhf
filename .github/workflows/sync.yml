@@ -1,0 +1,13 @@
+on:
+  schedule:
+    - cron: '0 0 1 * *'  
+  workflow_dispatch:        # also lets you trigger it manually from the Actions tab
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync fork
+        run: gh repo sync ${{ github.repository }} --source ORIGINAL_OWNER/ORIGINAL_REPO --force
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
